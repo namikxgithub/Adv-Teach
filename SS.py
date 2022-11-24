@@ -49,6 +49,7 @@ while True:
         if i == 40:
             print("Screenshot:" +  str(no) + "taken")
             cv2.imshow('screenshot: '+  str(no), ROI)
+            cv2.moveWindow('screenshot: '+  str(no),2000-no*500,700)
             cv2.imwrite('SnapshotImages/ROI' +str(no) + '.png', ROI)
             filez = 'SnapshotImages/ROI' +str(no) + '.png'
             with open("sample.html", "a") as file_object:
@@ -74,6 +75,8 @@ while True:
 
 
     cv2.imshow('Image', img)
+    cv2.moveWindow('Image',1150,50)
+
     if cv2.waitKey(1) & 0xff == ord('q'):
         break
 

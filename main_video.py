@@ -70,6 +70,8 @@ while (cap.isOpened()):
 
 
         cv2.imshow("Frame", frame)
+        cv2.moveWindow("Frame",1200,250)
+
 
         key = cv2.waitKey(1)
         if cv2.waitKey(10) & 0xff == ord('q'):   # 1 is the time in ms
