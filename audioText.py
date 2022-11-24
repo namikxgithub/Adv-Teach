@@ -4,7 +4,12 @@ import nlpcloud
 from time import sleep
 import re
 from playsound import playsound
-
+import os
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 
 class Audio_Handler:
 
@@ -42,7 +47,7 @@ class Audio_Handler:
         self.StartTeachIT()
 
         self.text_file = open("sample.html", "w")
-        playsound('test2.wav')
+        #playsound('test2.wav')
 
         sleep(0.7)
         self.SpeakText("Recording finished, initiating speech to text")
@@ -87,17 +92,87 @@ class Audio_Handler:
                 print("...")
 
     def Summarize_text(self, text):
-        client = nlpcloud.Client("bart-large-cnn", "5a765a6d4986fabc780213295cfdaad94d9f313e")
+        client = nlpcloud.Client("bart-large-cnn", "31e639871be97aa659946c27e6e6228931477c54")
         summarrized_text = client.summarization(f"""{text}""")
         self.SpeakText(" Here's the Summarized Text ")
-        print("<-------Summarized Text-------->\n")
         pat = ('(?<!Dr)(?<!Esq)\. +(?=[A-Z])')
         final_text = re.sub(pat,'.\n\n--> ',str(summarrized_text))
         final_text = final_text.replace("{'summary_text': '", "")
         final_text = final_text.replace("'}", "")
-        print("--> " + final_text)
+        final_text = "      <-------Summarized Text-------->\n\n" + "-->" + final_text + "\n\n"
+        print(final_text)
         self.summarized_text_file = open("summarized_text.txt", "w")
         self.summarized_text_file.write(str(final_text))
+
+        text_final = "      <-------Recorded Text-------->\n\n" + self.speech_text + "\n\n\n" + final_text + "\n\n"
+
+        self.Mailer(text_final, "namanmalik0210@gmail.com")
+
+
+    def Mailer(self, text, address):
+
+        fromaddr = "divyanshsharma1802@gmail.com"
+        toaddr = address
+
+        mail = "sending mail to: " + toaddr
+        self.SpeakText(mail)
+        print(mail)
+        print("\nMail Sent")
+
+        # instance of MIMEMultipart
+        msg = MIMEMultipart()
+
+        # storing the senders email address  
+        msg['From'] = fromaddr
+
+        # storing the receivers email address 
+        msg['To'] = toaddr
+
+        # storing the subject 
+        msg['Subject'] = "Text report"
+
+        # string to store the body of the mail
+        body = "hello this a report"
+
+        # attach the body with the msg instance
+        msg.attach(MIMEText(text, 'plain'))
+
+        for i in range(1,4):
+        # open the file to be sent 
+          filename = "ROI" + str(i) + ".png"
+          attachment = open("SnapshotImages/ROI" + str(i) + ".png", "rb")
+
+          # instance of MIMEBase and named as p
+          p = MIMEBase('application', 'octet-stream')
+
+          # To change the payload into encoded form
+          p.set_payload((attachment).read())
+
+          # encode into base64
+          encoders.encode_base64(p)
+
+          p.add_header('Content-Disposition', "attachment; filename= %s" % filename)
+
+          msg.attach(p)
+          # attach the instance 'p' to 
+
+        # creates SMTP session
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+
+        # start TLS for security
+        s.starttls()
+
+        # Authentication
+        s.login(fromaddr, "exxvpjtpcatnauit")
+
+        # Converts the Multipart msg into a string
+        text = msg.as_string()
+
+        # sending the mail
+        s.sendmail(fromaddr, toaddr, text)
+
+        # terminating the session
+        s.quit()
 
 
 Handler = Audio_Handler()

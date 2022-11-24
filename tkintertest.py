@@ -10,8 +10,11 @@ def takess():
 def track():
     ss="python3 main_video.py"
     os.system('%s'%ss)
-def summary():
+def summary2():
     ss="python3 audioText.py"
+    os.system('%s'%ss)
+def summary():
+    ss="python3 audioText2.py"
     os.system('%s'%ss)
 def display_text():
    global entry
@@ -24,19 +27,23 @@ bg = PhotoImage(file = "bg2.png")
 label1 = Label( root, image = bg)
 label1.place(x = 0, y = 0)
 
-ssbut=Button(root,text="ScreenShot",command=takess,width=20,borderwidth=0)
+ssbut=customtkinter.CTkButton(root,text="ScreenShot",text_font="Roboto 20",command=takess,height=60,borderwidth=0)
 ssbut.place(x=100,y=100)
 
-vidtrace=Button(root,text="Track me",command=track,width=20,borderwidth=0)
-vidtrace.place(x=400,y=100)
+vidtrace=customtkinter.CTkButton(root,text="Track me",text_font="Roboto 20",command=track,height=60,borderwidth=0)
+vidtrace.place(x=300,y=100)
 
-txt=Button(root,text="Summarize",command=summary,width=20,borderwidth=0)
+txt=customtkinter.CTkButton(root,text="Record Live",text_font="Roboto 20",command=summary,height=60,borderwidth=0)
+txt.place(x=500,y=100)
+
+txt=customtkinter.CTkButton(root,text="Summarize recording",text_font="Roboto 20",command=summary2,height=60,borderwidth=0)
 txt.place(x=700,y=100)
 
-entry= Entry(root, width= 40,borderwidth=0)
+entry= Entry(root,width=40,borderwidth=0,justify=CENTER)
 entry.focus_set()
-entry.place(x=100,y=703)
+entry.pack(pady=20)
+entry.place(x=100,y=820)
 
-Button(root, text= "Store mail", command= display_text,borderwidth=0).place(x=450,y=700)
+customtkinter.CTkButton(root, text= "Store mail",text_font="Roboto 20",command= display_text,borderwidth=0,height=60).place(x=450,y=800)
 
 root.mainloop()

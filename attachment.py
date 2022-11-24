@@ -3,10 +3,15 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
+import sys
    
 fromaddr = "divyanshsharma1802@gmail.com"
 toaddr = "hriday311203@gmail.com"
-   
+
+print("sending mail to: " + toaddr)
+
+text = str(sys.argv[1])
+
 # instance of MIMEMultipart
 msg = MIMEMultipart()
   
@@ -23,7 +28,7 @@ msg['Subject'] = "Report"
 body = "hello this a report"
   
 # attach the body with the msg instance
-msg.attach(MIMEText(body, 'plain'))
+msg.attach(MIMEText(text, 'plain'))
 
 for i in range(1,4):
 # open the file to be sent 
