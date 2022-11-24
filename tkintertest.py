@@ -5,13 +5,13 @@ customtkinter.set_appearance_mode("System")
 
 import os
 def takess():
-    ss="python SS.py"
+    ss="python3 SS.py"
     os.system('%s'%ss)
 def track():
-    ss="python main_video.py"
+    ss="python3 main_video.py"
     os.system('%s'%ss)
 def summary():
-    ss="python audioText.py"
+    ss="python3 audioText.py"
     os.system('%s'%ss)
 def display_text():
    global entry
@@ -20,7 +20,7 @@ def display_text():
 root=customtkinter.CTk()
 root.title('Advance Meet')
 root.geometry("1920x1080")
-bg = PhotoImage(file = "/home/hra/Desktop/hackathons/adv_teach/bg2.png")
+bg = PhotoImage(file = "bg2.png")
 label1 = Label( root, image = bg)
 label1.place(x = 0, y = 0)
 
