@@ -12,7 +12,7 @@ def track():
     os.system('%s'%ss)
 def summary2():
     print(str(entry.get()))
-    ss="python3 audioText.py " + str(entry.get())
+    ss="python3 audioText.py " + str(entry.get()) + " " + str(entry2.get())
     os.system('%s'%ss)
 def summary():
     ss="python3 audioText2.py"
@@ -43,8 +43,15 @@ txt.place(x=700,y=100)
 entry= Entry(root,width=40,borderwidth=0,justify=CENTER)
 entry.focus_set()
 entry.pack(pady=20)
-entry.place(x=100,y=820)
+entry.place(x=100,y=800)
+entry.insert(0,"Email Address")
 
-customtkinter.CTkButton(root, text= "Set Mail",text_font="Roboto 20",command= display_text,borderwidth=0,height=60).place(x=450,y=800)
+entry2= Entry(root,width=40,borderwidth=0,justify=CENTER)
+entry2.focus_set()
+entry2.pack(pady=20)
+entry2.place(x=100,y=850)
+entry2.insert(0,"File Name")
+
+customtkinter.CTkButton(root, text= "Set Email",text_font="Roboto 20",command= display_text,borderwidth=0,height=60).place(x=450,y=800)
 
 root.mainloop()

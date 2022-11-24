@@ -13,6 +13,7 @@ from email import encoders
 import sys
 
 SendEmail = ""
+FileName = ""
 
 class Audio_Handler:
 
@@ -60,7 +61,7 @@ class Audio_Handler:
         while (1):
             try:
                 #with sr.Microphone() as source2:
-                with sr.AudioFile('test2.wav') as source2:
+                with sr.AudioFile(FileName) as source2:
                 
                     #self.recognizer.adjust_for_ambient_noise(source2, duration=0.2)
                     audio2 = self.recognizer.listen(source2)
@@ -182,6 +183,7 @@ class Audio_Handler:
         s.quit()
 
 SendEmail = str(sys.argv[1])
+FileName = str(sys.argv[2])
 if SendEmail:
     print("email: " + SendEmail)
     Handler = Audio_Handler()
