@@ -11,7 +11,8 @@ def track():
     ss="python3 main_video.py"
     os.system('%s'%ss)
 def summary2():
-    ss="python3 audioText.py"
+    print(str(entry.get()))
+    ss="python3 audioText.py " + str(entry.get())
     os.system('%s'%ss)
 def summary():
     ss="python3 audioText2.py"
@@ -44,6 +45,6 @@ entry.focus_set()
 entry.pack(pady=20)
 entry.place(x=100,y=820)
 
-customtkinter.CTkButton(root, text= "Store mail",text_font="Roboto 20",command= display_text,borderwidth=0,height=60).place(x=450,y=800)
+customtkinter.CTkButton(root, text= "Set Mail",text_font="Roboto 20",command= display_text,borderwidth=0,height=60).place(x=450,y=800)
 
 root.mainloop()

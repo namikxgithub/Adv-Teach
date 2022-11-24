@@ -10,6 +10,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
+import sys
+
+SendEmail = ""
 
 class Audio_Handler:
 
@@ -18,6 +21,7 @@ class Audio_Handler:
         self.recognizer = sr.Recognizer()
         self.speech_text = ''
         self.speech_to_text()
+        self.email = str(sys.argv[1])
 
     def SpeakText(self, command):
         engine = pyttsx3.init()
@@ -105,14 +109,17 @@ class Audio_Handler:
         self.summarized_text_file.write(str(final_text))
 
         text_final = "      <-------Recorded Text-------->\n\n" + self.speech_text + "\n\n\n" + final_text + "\n\n"
+        
+        if SendEmail:
+            self.Mailer(text_final)
+        else:
+            print("No Email Set")
 
-        self.Mailer(text_final, "namanmalik0210@gmail.com")
 
-
-    def Mailer(self, text, address):
+    def Mailer(self, text):
 
         fromaddr = "divyanshsharma1802@gmail.com"
-        toaddr = address
+        toaddr = SendEmail
 
         mail = "sending mail to: " + toaddr
         self.SpeakText(mail)
@@ -174,5 +181,9 @@ class Audio_Handler:
         # terminating the session
         s.quit()
 
-
-Handler = Audio_Handler()
+SendEmail = str(sys.argv[1])
+if SendEmail:
+    print("email: " + SendEmail)
+    Handler = Audio_Handler()
+else:
+    print("No email set")

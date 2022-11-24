@@ -52,10 +52,13 @@ while (cap.isOpened()):
 
             sub = -(((int(frame.shape[1]/2)) - int((x1 + x2)/2))/5)
             #angle=int(90-sub)
-            if sub > 5:
-                angle = angle - 5
-            if sub < -5:
-                angle = angle + 5
+            if sub > 7:
+                if angle > 5:
+                    angle = angle - 3
+            if sub < -7:
+                if angle < 175:
+                    angle = angle + 3
+                    
             # board.digital[pin].write(160)
             print(angle)
             board.digital[pin].write(angle)
