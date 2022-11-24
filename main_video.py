@@ -13,7 +13,7 @@ ld = Line_detection()
 sfr.load_encoding_images("training images/")
 
 
-file_name = input('Please enter the name of the Lecture to be recorded:     ')
+file_name = "Test Lecture"
 
 # Load Camera
 cap = cv2.VideoCapture(2)
@@ -72,7 +72,7 @@ while (cap.isOpened()):
         cv2.imshow("Frame", frame)
 
         key = cv2.waitKey(1)
-        if key == 27:
+        if cv2.waitKey(10) & 0xff == ord('q'):   # 1 is the time in ms
             break
 
 cap.release()

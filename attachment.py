@@ -24,24 +24,25 @@ body = "hello this a report"
   
 # attach the body with the msg instance
 msg.attach(MIMEText(body, 'plain'))
-  
+
+for i in range(1,4):
 # open the file to be sent 
-filename = "Untitled design.png"
-attachment = open("/home/divi/Untitled design.png", "rb")
-  
-# instance of MIMEBase and named as p
-p = MIMEBase('application', 'octet-stream')
-  
-# To change the payload into encoded form
-p.set_payload((attachment).read())
-  
-# encode into base64
-encoders.encode_base64(p)
-   
-p.add_header('Content-Disposition', "attachment; filename= %s" % filename)
-  instance 'msg'
-msg.attach(p)
-# attach the instance 'p' to 
+  filename = "ROI" + str(i) + ".png"
+  attachment = open("SnapshotImages/ROI" + str(i) + ".png", "rb")
+
+  # instance of MIMEBase and named as p
+  p = MIMEBase('application', 'octet-stream')
+
+  # To change the payload into encoded form
+  p.set_payload((attachment).read())
+
+  # encode into base64
+  encoders.encode_base64(p)
+
+  p.add_header('Content-Disposition', "attachment; filename= %s" % filename)
+
+  msg.attach(p)
+  # attach the instance 'p' to 
   
 # creates SMTP session
 s = smtplib.SMTP('smtp.gmail.com', 587)

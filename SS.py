@@ -74,7 +74,7 @@ while True:
 
 
     cv2.imshow('Image', img)
-    if cv2.waitKey(1) & 0xff == ord(' '):
+    if cv2.waitKey(1) & 0xff == ord('q'):
         break
 
 cap.release()
